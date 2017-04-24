@@ -1,5 +1,5 @@
 import tkinter as tk
-import tkinter, tkinter.constants, tkinter.filedialog
+import tkinter.filedialog as fl
 import PyPDF2
     
 def removearticles(text):
@@ -23,18 +23,11 @@ def removearticles(text):
             rest.append(word)
     #return ' '.join(rest)            
     return ' '.join(e for e in rest if e.isalpha())
-
-def removenewlinechar(data):
-    print (type(data))
-    print (data.replace('\n', ''))
-    return data.replace('\n', '')
   
 def unique_file(input_filename, output_filename):
     pdf = PyPDF2.PdfFileReader(open(input_filename, "rb"))
     file_contents = ''
     for page in pdf.pages:
-        print (type(page.extractText()))
-        print (page.extractText().encode("ascii", "ignore").decode("utf-8"))
         file_contents_page = page.extractText().encode("ascii", "ignore").decode("utf-8")
         file_contents =  file_contents + file_contents_page.lower()
     #input_file.close()
@@ -53,7 +46,7 @@ def unique_file(input_filename, output_filename):
 
 root = tk.Tk()
 root.withdraw()
-filename = tkinter.filedialog.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("pdf files","*.pdf"),("pdf files","*.PDF")))
+filename = fl.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("pdf files","*.pdf"),("pdf files","*.PDF")))
 input_filename = filename
 output_filename = "D:\\pdf_res.txt"
 unique_file(input_filename, output_filename)
