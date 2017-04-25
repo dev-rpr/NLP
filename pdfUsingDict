@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.filedialog as fl
 import PyPDF2
 import pprint
+import os,errno
     
 def removearticles(text):
     articles = {'a': '', 'an':'', 'and':'', 'the':'','his': '','her': '','this': '' \
@@ -64,7 +65,12 @@ def unique_file(input_filename, output_filename):
 
 root = tk.Tk()
 root.withdraw()
-input_filename = fl.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("pdf files","*.pdf"),("pdf files","*.PDF")))
+try:
+    input_filename = fl.askopenfilename(initialdir = "/",title = "Select file",filetypes = (("pdf files","*.pdf"),("pdf files","*.PDF")))
+except FileNotFoundError:
+    print("Wrong file or file path")
+
+
 output_filename = "D:\\pdf_res.txt"
 unique_file(input_filename, output_filename)
 print ('done')
